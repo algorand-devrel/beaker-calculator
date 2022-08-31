@@ -1,3 +1,5 @@
+import os
+
 from algosdk import mnemonic
 from algosdk.v2client.algod import *
 from algosdk.atomic_transaction_composer import *
@@ -70,11 +72,13 @@ client = AlgodClient("a" * 64, "http://localhost:4001")
 
 addr, sk = get_accounts()[0]
 
+path = os.path.dirname(os.path.abspath(__file__))
+
 # Read in approval and clear TEAL programs
-with open("./approval.teal") as f:
+with open(os.path.join(path, "./approval.teal")) as f:
     approval_source = f.read()
 
-with open("./clear.teal") as f:
+with open(os.path.join(path, "clear.teal")) as f:
     clear_source = f.read()
 
 # Compile approval and clear TEAL programs
@@ -103,8 +107,8 @@ app_id = create_app(
 )
 
 # read json and create ABI Contract description
-with open("./contract.json") as f:
-    js = f.read()
+with open(os.path.join(path, "contract.json")) as f:
+    js = f.read() 
 c = Contract.from_json(js)
 
 signer = AccountTransactionSigner(sk)
