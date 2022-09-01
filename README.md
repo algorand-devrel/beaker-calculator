@@ -1,5 +1,5 @@
-## Beaker VS Pyteal
-This is a direct comparison of the simple calculator contract written in Beaker and PyTeal and it shows how Beaker simplifies writing smart contracts and interacting with them.
+## Showcasing Beaker
+This is a direct comparison of the simple calculator contract written in Beaker and bare PyTeal and it shows how Beaker simplifies writing smart contracts and interacting with them.
 
 ## Contents
 
