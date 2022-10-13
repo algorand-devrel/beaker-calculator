@@ -6,8 +6,8 @@ is_creator = Txn.sender() == Global.creator_address()
 # Main router class
 router = Router(
     # Name of the contract
-    "calculator",
-    BareCallActions(
+    name="calculator",
+    bare_calls=BareCallActions(
         no_op=OnCompleteAction.create_only(Approve()),
         update_application=OnCompleteAction.always(Return(is_creator)),
         delete_application=OnCompleteAction.always(Return(is_creator)),

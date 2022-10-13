@@ -1,6 +1,4 @@
 import os
-
-from algosdk import mnemonic
 from algosdk.v2client.algod import *
 from algosdk.atomic_transaction_composer import *
 from algosdk.future import *
@@ -49,7 +47,6 @@ def create_app(
     client.send_transactions([signed_txn])
 
     # await confirmation
-
     confirmed_txn = future.transaction.wait_for_confirmation(client, tx_id, 4)
     print("TXID: ", tx_id)
     print("Result confirmed in round: {}".format(confirmed_txn["confirmed-round"]))
@@ -108,7 +105,7 @@ app_id = create_app(
 
 # read json and create ABI Contract description
 with open(os.path.join(path, "contract.json")) as f:
-    js = f.read() 
+    js = f.read()
 c = Contract.from_json(js)
 
 signer = AccountTransactionSigner(sk)
@@ -116,17 +113,21 @@ signer = AccountTransactionSigner(sk)
 comp = AtomicTransactionComposer()
 
 sp = client.suggested_params()
+
 comp.add_method_call(
-    app_id, c.get_method_by_name("add"), addr, sp, signer, method_args=[1, 1]
+    app_id, c.get_method_by_name("sub"), addr, sp, signer, method_args=[2, 1]
 )
+
 comp.add_method_call(
-    app_id, c.get_method_by_name("sub"), addr, sp, signer, method_args=[3, 1]
+    app_id, c.get_method_by_name("div"), addr, sp, signer, method_args=[8, 4]
 )
+
 comp.add_method_call(
-    app_id, c.get_method_by_name("div"), addr, sp, signer, method_args=[4, 2]
+    app_id, c.get_method_by_name("add"), addr, sp, signer, method_args=[1, 2]
 )
+
 comp.add_method_call(
-    app_id, c.get_method_by_name("mul"), addr, sp, signer, method_args=[3, 2]
+    app_id, c.get_method_by_name("mul"), addr, sp, signer, method_args=[2, 2]
 )
 
 resp = comp.execute(client, 2)
