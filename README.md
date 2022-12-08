@@ -18,14 +18,12 @@ This is a direct comparison of the simple calculator contract written in Beaker 
 
 ### Install Sandbox
 
-Install the [sandbox](https://github.com/algorand/sandbox) to start a local private node and start it with the `source` configuration.
+Install the [sandbox](https://github.com/algorand/sandbox) to start a local private node and start it with the `dev` configuration.
 
-NOTE: Currently Beaker requires a sandbox running with the source config (or any config that contains this [commit](https://github.com/algorand/go-algorand/pull/4198))
-
-If you're in the sandbox directory run:
+go into the sandbox directory and run:
 
 ```
-./sandbox up source
+./sandbox up dev
 ```
 
 ### Clone repository
